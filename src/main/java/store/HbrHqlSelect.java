@@ -20,9 +20,9 @@ public class HbrHqlSelect {
 
         System.out.println("---Создаем кандидатов---");
         Candidate one = new Candidate("Parfiry", "JavaDeveloper", "300k/c");
-        Candidate two = new Candidate(2L, "Petr", "Lead", "400k/c");
-        Candidate three = new Candidate(3L, "Vsevolod", "DBDeveloper", "500k/c");
-        Candidate four = new Candidate(3L, "Petr", "JavaDeveloper", "600k/c");
+        Candidate two = new Candidate(2L, "Petr", "Lead", "400k/c", null);
+        Candidate three = new Candidate(3L, "Vsevolod", "DBDeveloper", "500k/c", null);
+        Candidate four = new Candidate(3L, "Petr", "JavaDeveloper", "600k/c", null);
 
         System.out.println("---Сохраняем кандидатов в БД---");
         session.save(one);

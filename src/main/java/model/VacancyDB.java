@@ -6,41 +6,33 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
- * Класс Candidate - кандидат.
- * Ссылается на базу вакансий(свой аккаунт), в которой находятся
- * интересующие его вакансии.
+ * Класс VacancyDb - содержит набор вакансий.
  *
  * @author Nikolay Polegaev
  * @version 1.0 20.11.2021
  */
 @Entity
-@Table(name = "candidate", schema = "job", catalog = "hql_db")
+@Table(name = "vacancydb", schema = "job", catalog = "hql_db")
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Candidate {
+public class VacancyDB {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
     private String name;
 
-    private String experience;
-
-    private String salary;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    private VacancyDB vacancyDB;
-
-    public Candidate(String name, String experience, String salary) {
-        this.name = name;
-        this.experience = experience;
-        this.salary = salary;
-    }
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            orphanRemoval = true)
+    private List<Vacancy> vacancies = new ArrayList();
 
     @Override
     public boolean equals(Object o) {
@@ -50,8 +42,8 @@ public class Candidate {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Candidate candidate = (Candidate) o;
-        return id.equals(candidate.id);
+        VacancyDB vacancyDB = (VacancyDB) o;
+        return id == vacancyDB.id;
     }
 
     @Override
@@ -61,11 +53,10 @@ public class Candidate {
 
     @Override
     public String toString() {
-        return "Candidate{"
+        return "VacancyDB{"
                 + "id=" + id
                 + ", name='" + name + '\''
-                + ", experience='" + experience + '\''
-                + ", salary='" + salary + '\''
+                + ", vacancyList=" + vacancies
                 + '}';
     }
 }

@@ -22,6 +22,8 @@
 <!--        <property name="hibernate.hibernate.session.events.log">true</property>-->
 
         <mapping class="model.Candidate"/>
+        <mapping class="model.Vacancy"/>
+        <mapping class="model.VacancyDB"/>
 
     </session-factory>
 </hibernate-configuration>

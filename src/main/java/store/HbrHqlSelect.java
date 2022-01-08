@@ -31,35 +31,35 @@ public class HbrHqlSelect {
         session.save(four);
 
         System.out.println("---Выборка всех кандидатов---");
-        Query query1 = session.createQuery("from Candidate");
-        query1.setFirstResult(0);
-        query1.setMaxResults(8);
-        List<Candidate> candidates1 = query1.getResultList();
+        Query allCandidates = session.createQuery("from Candidate");
+        allCandidates.setFirstResult(0);
+        allCandidates.setMaxResults(8);
+        List<Candidate> candidates1 = allCandidates.getResultList();
 
         for (Candidate c : candidates1) {
             System.out.println(c);
         }
 
         System.out.println("---Выборка и вывод с 2 по 4 кандидатов из набора---");
-        Query query2 = session.createQuery("from Candidate");
-        query2.setFirstResult(1);
-        query2.setMaxResults(3);
-        List<Candidate> candidates2 = query2.getResultList();
+        Query candidatesByRange = session.createQuery("from Candidate");
+        candidatesByRange.setFirstResult(1);
+        candidatesByRange.setMaxResults(3);
+        List<Candidate> candidates2 = candidatesByRange.getResultList();
 
         for (Candidate c : candidates2) {
             System.out.println(c);
         }
 
         System.out.println("---Выборка кандидата по id---");
-        org.hibernate.Query<Candidate> query3 = session.createQuery(
+        org.hibernate.Query<Candidate> candidateById = session.createQuery(
                 "from Candidate c where c.id = 1");
-        System.out.println(query3.uniqueResult());
+        System.out.println(candidateById.uniqueResult());
 
         System.out.println("---Выборка кандидата по имени---");
-        org.hibernate.Query<Candidate> query4 =
+        org.hibernate.Query<Candidate> candidateByName =
                 session.createQuery("from Candidate c where c.name = :name");
-        query4.setParameter("name", "Parfiry");
-        List<Candidate> candidates4 = query4.getResultList();
+        candidateByName.setParameter("name", "Parfiry");
+        List<Candidate> candidates4 = candidateByName.getResultList();
 
         for (Candidate c : candidates4) {
             System.out.println(c);
